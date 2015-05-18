@@ -4,16 +4,19 @@
 "use strict";
 angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates'])
 
-  .directive('ionicDatepicker', ['$ionicPopup', function ($ionicPopup) {
+  .directive('ionicDatepicker', ['$ionicPopup', '$locale', function ($ionicPopup, $locale) {
     return {
       restrict: 'AE',
       replace: true,
       scope: {
-        ipDate: '=idate'
+        ipDate: '=idate',
+		title: '@',				// Title of the pop-up
+		setText: '@',			// Set button text
+		closeText: '@',			// Close button text
+		todayText: '@',			// Today text
       },
       link: function (scope, element, attrs) {
-        var monthsList = ["January", "February", "March", "April", "May", "June", "July",
-          "August", "September", "October", "November", "December"];
+        var monthsList = $locale.DATETIME_FORMATS.MONTH;
 
         var currentDate = angular.copy(scope.ipDate);
         scope.weekNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -106,20 +109,20 @@ angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates'])
 
           $ionicPopup.show({
             templateUrl: 'date-picker-modal.html',
-            title: '<strong>Select Date</strong>',
+            title: '<strong>' + scope.title + '</strong>',
             subTitle: '',
             scope: scope,
             buttons: [
-              {text: 'Close'},
+              {text: scope.closeText},
               {
-                text: 'Today',
+                text: scope.todayText,
                 onTap: function (e) {
                   refreshDateList(new Date());
                   e.preventDefault();
                 }
               },
               {
-                text: 'Set',
+                text: scope.setText,
                 type: 'button-positive',
                 onTap: function (e) {
                   scope.date_selection.submitted = true;
