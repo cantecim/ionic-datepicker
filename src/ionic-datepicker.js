@@ -130,7 +130,7 @@ angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates'])
                   if (scope.date_selection.selected === true) {
                     scope.ipDate = angular.copy(scope.date_selection.selectedDate);
                   } else {
-                    scope.ipDate = angular.copy(currentDate);
+                    scope.date_selection.selected = scope.ipDate = angular.copy(currentDate);
                   }
                 }
               }
