@@ -19,7 +19,7 @@ angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates'])
         var monthsList = $locale.DATETIME_FORMATS.MONTH;
 
         var currentDate = angular.copy(scope.ipDate);
-        scope.weekNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        scope.weekNames = $locale.DATETIME_FORMATS.SHORTDAY;
 
         scope.today = {};
         scope.today.dateObj = new Date();
@@ -130,7 +130,7 @@ angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates'])
                   if (scope.date_selection.selected === true) {
                     scope.ipDate = angular.copy(scope.date_selection.selectedDate);
                   } else {
-                    e.preventDefault();
+                    scope.ipDate = angular.copy(currentDate);
                   }
                 }
               }
